@@ -114,11 +114,15 @@
       }
 
       esp-web-install-button {
-        --esp-tools-button-color: #111;
+        --esp-tools-button-color: var(--yellow);
         --esp-tools-button-text-color: #111;
+        --esp-tools-button-border-radius: 16px;
       }
 
-      esp-web-install-button::part(button) {
+      .install-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         background: var(--yellow);
         color: #111;
         border: none;
@@ -126,8 +130,23 @@
         padding: 16px 22px;
         font-family: "Press Start 2P", sans-serif;
         font-size: .64rem;
+        line-height: 1.45;
         box-shadow: 0 8px 0 rgba(0,0,0,.32);
         cursor: pointer;
+        text-transform: uppercase;
+      }
+
+      .install-button:hover {
+        filter: brightness(1.08);
+      }
+
+      .install-unsupported {
+        display: inline-block;
+        color: #fff5ad;
+        border: 1px solid rgba(255, 212, 0, .35);
+        border-radius: 14px;
+        padding: 12px 14px;
+        line-height: 1.5;
       }
 
       .small {
@@ -350,7 +369,11 @@
         </div>
 
         <div class="install-card">
-          <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+          <esp-web-install-button manifest="manifest.json">
+            <button slot="activate" class="install-button">Instalar firmware</button>
+            <span slot="unsupported" class="install-unsupported">Tu navegador no soporta Web Serial. Usá Google Chrome o Microsoft Edge desde una PC.</span>
+            <span slot="not-allowed" class="install-unsupported">Web Serial requiere HTTPS o localhost.</span>
+          </esp-web-install-button>
           <p class="small">
             El proceso carga bootloader, particiones y firmware principal. Al finalizar, el ESP32 inicia en <b>Modo Printer</b>, con WiFi apagado.
           </p>
