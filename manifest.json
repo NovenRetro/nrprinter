@@ -1,0 +1,23 @@
+{
+  "name": "NR Printer by NovenRetro",
+  "version": "1.0.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.bootloader.bin",
+          "offset": 4096
+        },
+        {
+          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.partitions.bin",
+          "offset": 32768
+        },
+        {
+          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.bin",
+          "offset": 65536
+        }
+      ]
+    }
+  ]
+}

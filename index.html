@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Language" content="es-AR">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NR Printer v1.0 · Instalador Web</title>
+
+    <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+      :root {
+        --bg: #0b0b10;
+        --panel: #171721;
+        --panel-2: #20202c;
+        --cyan: #00e5ff;
+        --pink: #ff4fd8;
+        --yellow: #ffd400;
+        --green: #00e676;
+        --red: #ff5c5c;
+        --text: #f4f4f6;
+        --muted: #aaaab5;
+        --line: #343446;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background:
+          radial-gradient(circle at top, rgba(0, 229, 255, 0.18), transparent 32%),
+          radial-gradient(circle at bottom right, rgba(255, 79, 216, 0.16), transparent 34%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Inter", Arial, sans-serif;
+        text-align: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 18px 42px;
+      }
+
+      .hero {
+        background: rgba(23, 23, 33, 0.96);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 28px 20px;
+        box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      }
+
+      .logo {
+        width: 150px;
+        margin-bottom: 22px;
+        border-radius: 14px;
+        filter: drop-shadow(0 0 12px rgba(0, 229, 255, .18));
+      }
+
+      h1, h2, h3 {
+        font-family: "Press Start 2P", sans-serif;
+        line-height: 1.45;
+      }
+
+      h1 {
+        color: var(--cyan);
+        font-size: 1.18rem;
+        margin: 0 0 12px;
+      }
+
+      .version {
+        display: inline-block;
+        color: #111;
+        background: var(--yellow);
+        font-family: "Press Start 2P", sans-serif;
+        font-size: .62rem;
+        padding: 8px 12px;
+        border-radius: 999px;
+        margin: 4px 0 20px;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin: 0 auto 18px;
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 1rem;
+      }
+
+      .warning {
+        max-width: 760px;
+        margin: 16px auto 22px;
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 212, 0, .35);
+        background: rgba(255, 212, 0, .08);
+        border-radius: 16px;
+        color: #fff5ad;
+        line-height: 1.55;
+      }
+
+      .install-card {
+        margin: 26px auto 10px;
+        padding: 20px;
+        max-width: 520px;
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+      }
+
+      esp-web-install-button {
+        --esp-tools-button-color: #111;
+        --esp-tools-button-text-color: #111;
+      }
+
+      esp-web-install-button::part(button) {
+        background: var(--yellow);
+        color: #111;
+        border: none;
+        border-radius: 16px;
+        padding: 16px 22px;
+        font-family: "Press Start 2P", sans-serif;
+        font-size: .64rem;
+        box-shadow: 0 8px 0 rgba(0,0,0,.32);
+        cursor: pointer;
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: .9rem;
+        line-height: 1.5;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .card {
+        background: rgba(23, 23, 33, 0.96);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .card h2 {
+        color: var(--pink);
+        font-size: .85rem;
+        margin: 0 0 16px;
+      }
+
+      .card h3 {
+        color: var(--yellow);
+        font-size: .68rem;
+        margin: 18px 0 10px;
+      }
+
+      .card p, .card li {
+        color: var(--text);
+        line-height: 1.65;
+        font-size: .96rem;
+      }
+
+      ul {
+        padding-left: 22px;
+        margin: 0;
+      }
+
+      li {
+        margin: 7px 0;
+      }
+
+      code {
+        background: #050508;
+        color: var(--cyan);
+        padding: 2px 6px;
+        border-radius: 6px;
+        white-space: nowrap;
+      }
+
+      .led-list strong {
+        color: var(--yellow);
+      }
+
+      .connections {
+        grid-column: 1 / -1;
+        text-align: center;
+      }
+
+      .images-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 18px 0 6px;
+      }
+
+      .img-box {
+        text-align: center;
+        max-width: 260px;
+      }
+
+      .img-box img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: transform .2s ease, border-color .2s ease;
+        border: 1px solid var(--line);
+        background-color: #000;
+      }
+
+      .img-box img:hover {
+        transform: scale(1.04);
+        border-color: var(--cyan);
+      }
+
+      .img-box p {
+        font-family: "Press Start 2P", sans-serif;
+        font-size: .58rem;
+        margin-top: 10px;
+        color: var(--yellow);
+      }
+
+      .pin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+
+      .pin-table th,
+      .pin-table td {
+        border-bottom: 1px solid var(--line);
+        padding: 10px 8px;
+        color: var(--text);
+        font-size: .9rem;
+        vertical-align: top;
+      }
+
+      .pin-table th {
+        color: var(--yellow);
+        font-weight: 900;
+      }
+
+      .github-link {
+        margin-top: 26px;
+      }
+
+      .github-link a {
+        display: inline-block;
+        padding: 12px 18px;
+        background-color: transparent;
+        border: 1px solid var(--pink);
+        color: var(--pink);
+        border-radius: 12px;
+        font-family: "Press Start 2P", sans-serif;
+        font-size: .62rem;
+        text-decoration: none;
+        transition: .2s;
+      }
+
+      .github-link a:hover {
+        background-color: var(--pink);
+        color: #121212;
+      }
+
+      .divider {
+        width: 84%;
+        margin: 30px auto 18px;
+        border: none;
+        border-top: 1px solid var(--yellow);
+        opacity: .28;
+      }
+
+      footer {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: .85rem;
+        line-height: 1.5;
+      }
+
+      .logo-inline {
+        height: 1.5em;
+        width: auto;
+        vertical-align: middle;
+        margin-right: 4px;
+        border-radius: 50%;
+      }
+
+      @media (max-width: 780px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: .94rem;
+        }
+
+        .container {
+          padding: 18px 12px 32px;
+        }
+
+        .hero, .card {
+          border-radius: 18px;
+        }
+
+        .pin-table th,
+        .pin-table td {
+          display: block;
+          width: 100%;
+          border-bottom: none;
+        }
+
+        .pin-table tr {
+          display: block;
+          border-bottom: 1px solid var(--line);
+          padding: 8px 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="hero">
+        <img src="logo-novenretro.png" alt="NovenRetro" class="logo">
+
+        <h1>NR Printer · Game Boy Printer para ESP32</h1>
+        <div class="version">Firmware v1.0</div>
+
+        <p class="lead">
+          Instalador web para convertir un ESP32 en una impresora compatible con Game Boy Camera/Game Boy Printer,
+          con galería local, guardado interno e impresión automática en térmicas SC03h compatibles.
+        </p>
+
+        <div class="warning">
+          Usá Google Chrome o Microsoft Edge desde una PC. Conectá el ESP32 por USB, elegí el puerto COM correcto y presioná instalar.
+          Si la placa no entra en modo flash automáticamente, mantené presionado <b>BOOT</b> durante el inicio del proceso.
+        </div>
+
+        <div class="install-card">
+          <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+          <p class="small">
+            El proceso carga bootloader, particiones y firmware principal. Al finalizar, el ESP32 inicia en <b>Modo Printer</b>, con WiFi apagado.
+          </p>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>¿Qué hace?</h2>
+          <ul>
+            <li>El ESP32 se comporta como una <b>Game Boy Printer</b> frente a la Game Boy.</li>
+            <li>Guarda las capturas en memoria interna usando LittleFS.</li>
+            <li>Si Auto-print está activo, busca una impresora <b>SC03h</b> compatible e imprime.</li>
+            <li>Si la térmica no está disponible, la captura queda guardada igual.</li>
+            <li>BOOT 2 segundos abre la red local <code>NRPrinter</code> para galería/configuración.</li>
+          </ul>
+
+          <h3>Compatibilidad</h3>
+          <p>
+            Pensado para impresoras tipo SC03h/iPrint con BLE <code>AE30</code> y TX <code>AE01</code>.
+            No es compatible con cualquier impresora térmica Bluetooth genérica.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Comportamiento del LED</h2>
+          <ul class="led-list">
+            <li><strong>Modo Printer listo:</strong> LED apagado.</li>
+            <li><strong>Modo WiFi/Web:</strong> LED encendido fijo.</li>
+            <li><strong>Buscando/vinculando SC03h:</strong> pulso lento.</li>
+            <li><strong>Imprimiendo en térmica:</strong> parpadeo durante el envío.</li>
+            <li><strong>BOOT corto:</strong> alterna Auto-print. 4 parpadeos = ON, 2 parpadeos = OFF.</li>
+            <li><strong>BOOT 2 segundos:</strong> abre la galería web local.</li>
+          </ul>
+        </article>
+
+        <article class="card connections">
+          <h2>Esquema de conexiones</h2>
+          <p class="small">
+            Reemplazá la imagen <code>esquema-de-conexiones.png</code> por el esquema final del proyecto.
+            Recordatorio: el pin VCC del Link Cable solo alimenta el lado HV del level shifter; no alimentes el ESP32 desde la Game Boy.
+          </p>
+
+          <div class="images-row">
+            <div class="img-box">
+              <a href="esquema-de-conexiones.png" target="_blank" rel="noopener">
+                <img src="esquema-de-conexiones.png" alt="Esquema de conexiones NR Printer">
+              </a>
+              <p>Conexiones</p>
+            </div>
+          </div>
+
+          <div class="images-row">
+            <div class="img-box">
+              <a href="nr printer.stl" target="_blank" rel="noopener">
+                <img src="preview-stls.png" alt="Esquema de conexiones NR Printer">
+              </a>
+              <p>Descarga STL</p>
+            </div>
+          </div>
+
+          <table class="pin-table">
+            <thead>
+              <tr>
+                <th>Game Boy Link</th>
+                <th>ESP32 / Level Shifter</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pin 1 VCC 5V</td>
+                <td>HV del level shifter. No alimentar el ESP32 desde acá.</td>
+              </tr>
+              <tr>
+                <td>Pin 6 GND</td>
+                <td>GND común con ESP32 y level shifter.</td>
+              </tr>
+              <tr>
+                <td>Pin 2 SOUT</td>
+                <td>Level shifter → ESP32 GPIO 26.</td>
+              </tr>
+              <tr>
+                <td>Pin 3 SIN</td>
+                <td>ESP32 GPIO 25 → level shifter → Game Boy.</td>
+              </tr>
+              <tr>
+                <td>Pin 5 CLK</td>
+                <td>Level shifter → ESP32 GPIO 27.</td>
+              </tr>
+              <tr>
+                <td>ESP32 3V3</td>
+                <td>LV del level shifter.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <hr class="divider">
+
+      <div class="github-link">
+        <a href="https://github.com/NovenRetro" target="_blank" rel="noopener">Ver proyecto en GitHub</a>
+      </div>
+
+      <footer>
+        <img src="logo-novenretro.png" alt="Logo NovenRetro" class="logo-inline">
+        Desarrollado por @NovenRetro · Córdoba, Argentina<br>
+        2026 · Prohibida su comercialización en cualquier forma
+      </footer>
+    </div>
+  </body>
+</html>
