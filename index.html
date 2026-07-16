@@ -209,6 +209,50 @@
         color: var(--yellow);
       }
 
+      .internal-web {
+        margin-top: 18px;
+        padding: 16px;
+        border: 1px solid rgba(0, 229, 255, .45);
+        background: rgba(0, 229, 255, .08);
+        border-radius: 16px;
+      }
+
+      .internal-web h3 {
+        margin-top: 0;
+        color: var(--cyan);
+      }
+
+      .internal-web p {
+        margin: 8px 0 14px;
+        color: var(--muted);
+      }
+
+      .internal-web-link {
+        display: inline-block;
+        padding: 12px 16px;
+        background: var(--cyan);
+        color: #061014;
+        border-radius: 12px;
+        font-family: "Press Start 2P", sans-serif;
+        font-size: .56rem;
+        text-decoration: none;
+        box-shadow: 0 6px 0 rgba(0,0,0,.32);
+      }
+
+      .internal-web-link:hover {
+        filter: brightness(1.08);
+      }
+
+      .downloads-row {
+        align-items: flex-start;
+      }
+
+      .downloads-row .img-box {
+        flex: 1 1 0;
+        max-width: 260px;
+        min-width: 180px;
+      }
+
       .connections {
         grid-column: 1 / -1;
         text-align: center;
@@ -399,7 +443,7 @@
         </article>
 
         <article class="card">
-          <h2>Comportamiento del LED</h2>
+          <h2>Comportamiento de NRPrinter</h2>
           <ul class="led-list">
             <li><strong>Modo Printer listo:</strong> LED apagado.</li>
             <li><strong>Modo WiFi/Web:</strong> LED encendido fijo.</li>
@@ -408,6 +452,14 @@
             <li><strong>BOOT corto:</strong> alterna Auto-print. 4 parpadeos = ON, 2 parpadeos = OFF.</li>
             <li><strong>BOOT 2 segundos:</strong> abre la galería web local.</li>
           </ul>
+
+          <div class="internal-web">
+            <h3>Web interna del ESP32</h3>
+            <p>
+              En Modo WiFi/Web, conectate a la red <code>NRPrinter</code> y abrí la galería local:
+            </p>
+            <a class="internal-web-link" href="http://192.168.4.1" target="_blank" rel="noopener">192.168.4.1</a>
+          </div>
         </article>
 
         <article class="card connections">
@@ -417,28 +469,24 @@
             Recordatorio: el pin VCC del Link Cable solo alimenta el lado HV del level shifter; no alimentes el ESP32 desde la Game Boy.
           </p>
 
-          <div class="images-row">
+          <div class="images-row downloads-row">
             <div class="img-box">
               <a href="esquema-de-conexiones.png" target="_blank" rel="noopener">
                 <img src="esquema-de-conexiones.png" alt="Esquema de conexiones NR Printer">
               </a>
               <p>Conexiones</p>
             </div>
-          </div>
 
-          <div class="images-row">
             <div class="img-box">
               <a href="nrprintercase.stl" target="_blank" rel="noopener">
-                <img src="preview-stls.png" alt="Esquema de conexiones NR Printer">
+                <img src="preview-stls.png" alt="Carcasa STL NR Printer">
               </a>
               <p>Carcasa STL</p>
             </div>
-          </div>
 
-          <div class="images-row">
             <div class="img-box">
               <a href="PikaPrinter.zip" target="_blank" rel="noopener">
-                <img src="pikaprinter.png" alt="Esquema de conexiones NR Printer">
+                <img src="pikaprinter.png" alt="PikaPrinter STL">
               </a>
               <p>PikaPrinter STL</p>
             </div>
