@@ -6,15 +6,15 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.bootloader.bin",
+          "path": "NR_GBPrinter_SC03h_v1_0_10.ino.bootloader.bin",
           "offset": 4096
         },
         {
-          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.partitions.bin",
+          "path": "NR_GBPrinter_SC03h_v1_0_10.ino.partitions.bin",
           "offset": 32768
         },
         {
-          "path": "NR_GBPrinter_SC03h_v1_0_2.ino.bin",
+          "path": "NR_GBPrinter_SC03h_v1_0_10.ino.bin",
           "offset": 65536
         }
       ]
